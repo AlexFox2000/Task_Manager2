@@ -1,0 +1,27 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: mc-user
+
+  jpa:
+    generate-ddl: false
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+    show-sql: true
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: 79.174.80.200:9092
+    kafkaMessageTopicForAccount: updateTopic
+    kafkaMessageTopicForNotification: NotificationTopic
+    kafkaMessageGroupId: account_consumer
+

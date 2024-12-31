@@ -1,0 +1,40 @@
+server:
+  port: 3000
+
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: mc-user
+          uri: http://local-auth-1:8080
+          predicates:
+            - Path=/api/auth/sign-up, /api/auth/login, /api/auth/refresh-token, /api/auth/testBody, /api/auth/createVersion, /api/auth/checkVersion, /api/news/plain/{fileId}, /api/news/upload, /api/news/upload
+
+        - id: mc-task
+          uri: http://shopot-auth-1:8081
+          predicates:
+            - Path=/api/auth/**, /api/news/**
+          filters:
+            - TokenAuthenticationFilterFactory
+
+        - id: mc-comment
+          uri: http://shopot-users-1:8082
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - TokenAuthenticationFilterFactory
+
+        - id: mc-notification
+          uri: http://shopot-users-1:8083
+          predicates:
+            - Path=/api/contacts/**
+          filters:
+            - TokenAuthenticationFilterFactory
+
+        - id: chat-report
+          uri: http://shopot-chat-1:8084
+          predicates:
+            - Path=/api/chat-room/**, /api/contact/**, /api/group_chat/**, /api/personal-chat/**, /api/personal-chat
+          filters:
+            - TokenAuthenticationFilterFactory
