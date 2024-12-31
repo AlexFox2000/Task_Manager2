@@ -1,0 +1,161 @@
+services:
+  mc-user:
+    build:
+      context: ./mc-user
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-user:5432/user
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 79.174.80.200:9092
+      SPRING_APPLICATION_NAME: mc-user
+    depends_on:
+      - db-user
+    networks:
+      - microservices
+
+  mc-task:
+    build:
+      context: ./mc-task
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-task:5432/task
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 79.174.80.200:9092
+      SPRING_APPLICATION_NAME: mc-task
+    depends_on:
+      - db-task
+    networks:
+      - microservices
+
+  mc-comment:
+    build:
+      context: ./mc-comment
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-comment:5432/comment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 79.174.80.200:9092
+      SPRING_APPLICATION_NAME: mc-comment
+    depends_on:
+      - db-comment
+    networks:
+      - microservices
+
+  mc-notification:
+    build:
+      context: ./mc-notification
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-notification:5432/notification
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 79.174.80.200:9092
+      SPRING_APPLICATION_NAME: mca-notification
+    depends_on:
+      - db-notification
+    networks:
+      - microservices
+
+  mc-report:
+    build:
+      context: ./mc-report
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db-report:5432/report
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: 79.174.80.200:9092
+      SPRING_APPLICATION_NAME: mc-report
+    depends_on:
+      - db-report
+    networks:
+      - microservices
+
+  db-user:
+    image: postgres:15
+    container_name: db-user
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: user
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-user-data:/var/lib/postgresql/data
+    networks:
+      - microservices
+
+  db-task:
+    image: postgres:15
+    container_name: db-task
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: task
+    ports:
+      - "5434:5432"
+    volumes:
+      - db-task-data:/var/lib/postgresql/data
+    networks:
+      - microservices
+
+  db-comment:
+    image: postgres:15
+    container_name: db-comment
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: comment
+    ports:
+      - "5435:5432"
+    volumes:
+      - db-comment-data:/var/lib/postgresql/data
+    networks:
+      - microservices
+
+  db-notification:
+    image: postgres:15
+    container_name: db-notification
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: notification
+    ports:
+      - "5436:5432"
+    volumes:
+      - db-notification-data:/var/lib/postgresql/data
+    networks:
+      - microservices
+
+  db-report:
+    image: postgres:15
+    container_name: db-report
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: report
+    ports:
+      - "5437:5432"
+    volumes:
+      - db-report-data:/var/lib/postgresql/data
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
+
+volumes:
+  db-user-data:
+  db-task-data:
+  db-comment-data:
+  db-notification-data:
+  db-report-data:
