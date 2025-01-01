@@ -22,19 +22,15 @@ spring:
           uri: http://shopot-users-1:8082
           predicates:
             - Path=/api/user/**
-          filters:
-            - TokenAuthenticationFilterFactory
 
         - id: mc-notification
           uri: http://shopot-users-1:8083
           predicates:
             - Path=/api/contacts/**
-          filters:
-            - TokenAuthenticationFilterFactory
 
-        - id: chat-report
+
+        - id: mc-report
           uri: http://shopot-chat-1:8084
           predicates:
             - Path=/api/chat-room/**, /api/contact/**, /api/group_chat/**, /api/personal-chat/**, /api/personal-chat
-          filters:
-            - TokenAuthenticationFilterFactory
+

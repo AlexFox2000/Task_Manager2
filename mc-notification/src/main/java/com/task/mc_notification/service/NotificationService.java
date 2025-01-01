@@ -3,7 +3,6 @@ package com.task.mc_notification.service;
 import com.task.mc_notification.entity.Notification;
 import com.task.mc_notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="alexpry"
+FROM openjdk:17-jdk-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/mc-report.jar /app/mc-report.jar
+
+CMD ["java", "-jar", "/app/mc-report.jar"]
+
+EXPOSE 8084

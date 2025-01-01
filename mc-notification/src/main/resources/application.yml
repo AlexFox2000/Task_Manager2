@@ -1,9 +1,9 @@
 server:
-  port: 8085
+  port: 8083
 
 spring:
   application:
-    name: mc-user
+    name: mca-notification
 
   jpa:
     generate-ddl: false
@@ -12,7 +12,7 @@ spring:
       ddl-auto: update
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/user
+    url: jdbc:postgresql://localhost:5432/notification
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

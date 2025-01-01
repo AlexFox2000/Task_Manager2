@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-LABEL authors="alexpry"
+FROM openjdk:17-jdk-slim
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY target/mc-comment.jar /app/mc-comment.jar
+
+CMD ["java", "-jar", "/app/mc-comment.jar"]
+
+EXPOSE 8082
